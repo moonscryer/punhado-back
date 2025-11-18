@@ -6,6 +6,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get(uri:'/about', action:function () {
-    return view(view:'about');
-});
+Route::view('/about', 'about')->name('about');
+
+Route::fallback(function(){
+    return "Page not found. Return <a href='/'>home</a>.";
+})->name('fallback');
