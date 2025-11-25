@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\GameController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\CharacterController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('home');
 
@@ -19,3 +20,14 @@ Route::get('/games/{game}/edit', [GameController::class, 'edit'])->name('games.e
 Route::put('/games/{game}', [GameController::class, 'update'])->name('games.update');
 Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.destroy');
 Route::patch('/games/{game}/toggle', [GameController::class, 'togglePublished'])->name('games.toggle');
+
+
+// Characters routes
+
+Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
+Route::get('/characters/create', [CharacterController::class, 'create'])->name('characters.create');
+Route::post('/characters', [CharacterController::class, 'store'])->name('characters.store');
+Route::get('/characters/{character}/edit', [CharacterController::class, 'edit'])->name('characters.edit');
+Route::put('/characters/{character}', [CharacterController::class, 'update'])->name('characters.update');
+Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
+Route::patch('/characters/{character}/toggle', [CharacterController::class, 'togglePublished'])->name('characters.toggle');

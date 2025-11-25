@@ -3,7 +3,13 @@
 @section('content')
 <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
     <h1 class="text-2xl font-bold mb-4">Edit Game</h1>
-
+<a href="{{ route('games.index') }}" 
+   class="inline-flex items-center mb-4 px-4 py-2 bg-gray-100 text-gray-800 font-medium rounded-lg shadow-sm hover:bg-gray-200 transition">
+    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+    </svg>
+    Back to Games
+</a>
     <form action="{{ route('games.update', $game) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
