@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('home');
@@ -31,3 +32,13 @@ Route::get('/characters/{character}/edit', [CharacterController::class, 'edit'])
 Route::put('/characters/{character}', [CharacterController::class, 'update'])->name('characters.update');
 Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
 Route::patch('/characters/{character}/toggle', [CharacterController::class, 'togglePublished'])->name('characters.toggle');
+
+// Users routes
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::patch('/users/{user}/toggle', [UserController::class, 'toggleSuper'])->name('users.toggle');
