@@ -8,16 +8,27 @@
         &larr; Back to Users
     </a>
 
+    @if ($errors->any())
+        <div class="mb-4 p-4 bg-red-100 text-red-800 rounded-lg">
+            <h2 class="font-bold mb-2">Please fix the following errors:</h2>
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('users.update', $user) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
         <div>
             <label class="block text-gray-700">Username</label>
-            <input type="text" name="username" value="{{ $user->username }}" class="w-full border rounded px-3 py-2" required>
+            <input type="text" name="username" value="{{ old('username', $user->username) }}" class="w-full border rounded px-3 py-2" required>
         </div>
         <div>
             <label class="block text-gray-700">Email</label>
-            <input type="email" name="email" value="{{ $user->email }}" class="w-full border rounded px-3 py-2" required>
+            <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full border rounded px-3 py-2" required>
         </div>
         <div>
             <label class="block text-gray-700">Password (leave blank to keep current)</label>
@@ -28,7 +39,7 @@
             <input type="password" name="password_confirmation" class="w-full border rounded px-3 py-2">
         </div>
         <div class="flex items-center gap-2">
-            <input type="checkbox" name="super_user" value="1" {{ $user->super_user ? 'checked' : '' }}>
+            <input type="checkbox" name="super_user" value="1" {{ old('super_user', $user->super_user) ? 'checked' : '' }}>
             <label class="text-gray-700">Super User</label>
         </div>
         <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Update User</button>
