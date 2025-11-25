@@ -9,11 +9,11 @@ class GameController extends Controller
 {
     public function index()
     {
-    $games = Game::with('characters')
-                 ->orderBy('id', 'desc')
-                 ->paginate(10);
+        $games = Game::with('characters')
+                     ->orderBy('id', 'desc')
+                     ->paginate(10);
 
-    return view('games.index', compact('games'));
+        return view('games.index', compact('games'));
     }
 
     public function create()
@@ -28,6 +28,7 @@ class GameController extends Controller
             'system' => 'required|string|max:100',
             'description' => 'nullable|string',
             'published' => 'boolean',
+            'image_url' => 'nullable|url|max:255', // ← Added
         ]);
 
         Game::create($request->all());
@@ -47,6 +48,7 @@ class GameController extends Controller
             'system' => 'required|string|max:100',
             'description' => 'nullable|string',
             'published' => 'boolean',
+            'image_url' => 'nullable|url|max:255', // ← Added
         ]);
 
         $game->update($request->all());

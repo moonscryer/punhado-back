@@ -15,6 +15,7 @@
         <thead class="bg-gray-50">
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Player</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Game</th>
@@ -23,25 +24,35 @@
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-            @foreach($characters as $char)
+            @foreach($characters as $character)
                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $char->id }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $char->name }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $char->player }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $char->game->name ?? '-' }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $character->id }}</td>
+
+                    <!-- Character thumbnail -->
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <form action="{{ route('characters.toggle', $char) }}" method="POST">
+                        @if($character->image)
+                            <img src="{{ $character->image }}" alt="Character image" class="w-12 h-12 object-cover rounded">
+                        @else
+                            <span class="text-gray-400 text-sm">No image</span>
+                        @endif
+                    </td>
+
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $character->name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $character->player }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $character->game->name ?? '-' }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <form action="{{ route('characters.toggle', $character) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <button type="submit" 
-                                    class="px-2 py-1 rounded-full text-white {{ $char->published ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600' }}">
-                                {{ $char->published ? 'Yes' : 'No' }}
+                                    class="px-2 py-1 rounded-full text-white {{ $character->published ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600' }}">
+                                {{ $character->published ? 'Yes' : 'No' }}
                             </button>
                         </form>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                        <a href="{{ route('characters.edit', $char) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        <button type="button" onclick="openDeleteModal({{ $char->id }})" class="text-red-600 hover:text-red-900">Delete</button>
+                        <a href="{{ route('characters.edit', $character) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                        <button type="button" onclick="openDeleteModal({{ $character->id }})" class="text-red-600 hover:text-red-900">Delete</button>
                     </td>
                 </tr>
             @endforeach
@@ -53,7 +64,7 @@
     {{ $characters->links() }}
 </div>
 
-<!-- Delete Modal -->
+<!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden items-center justify-center z-50">
     <div class="bg-white rounded-lg shadow-lg w-96 p-6">
         <h2 class="text-xl font-bold mb-4">Confirm Delete</h2>
