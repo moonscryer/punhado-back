@@ -19,7 +19,7 @@
         </div>
     @endif
 
-    <form action="{{ route('games.update', $game) }}" method="POST" class="space-y-4">
+    <form action="{{ route('games.update', $game->id) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
         <div>
@@ -33,6 +33,10 @@
         <div>
             <label class="block text-gray-700">Description</label>
             <textarea name="description" class="w-full border rounded px-3 py-2">{{ old('description', $game->description) }}</textarea>
+        </div>
+        <div>
+            <label class="block text-gray-700">Image URL</label>
+            <input type="text" name="image_url" value="{{ old('image_url', $game->image_url) }}" class="w-full border rounded px-3 py-2" placeholder="https://example.com/image.jpg">
         </div>
         <div class="flex items-center gap-2">
             <input type="checkbox" name="published" value="1" {{ old('published', $game->published) ? 'checked' : '' }}>

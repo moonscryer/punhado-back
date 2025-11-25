@@ -15,6 +15,7 @@
         <thead class="bg-gray-50">
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">System</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Published</th>
@@ -26,6 +27,16 @@
             @foreach($games as $game)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $game->id }}</td>
+
+                    <!-- Image thumbnail -->
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        @if($game->image_url)
+                            <img src="{{ $game->image_url }}" alt="Game image" class="w-12 h-12 object-cover rounded">
+                        @else
+                            <span class="text-gray-400 text-sm">No image</span>
+                        @endif
+                    </td>
+
                     <td class="px-6 py-4 whitespace-nowrap">{{ $game->name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $game->system }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -57,7 +68,8 @@
 <div id="deleteModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden items-center justify-center z-50">
     <div class="bg-white rounded-lg shadow-lg w-96 p-6">
         <h2 class="text-xl font-bold mb-4">Confirm Delete</h2>
-        <p>Are you sure you want to delete this game?</p><p class="mb-4 text-red-700 font-bold">This action cannot be undone and will delete all characters associated with this game.</p>
+        <p>Are you sure you want to delete this game?</p>
+        <p class="mb-4 text-red-700 font-bold">This action cannot be undone and will delete all characters associated with this game.</p>
         <div class="flex justify-end space-x-2">
             <button onclick="closeDeleteModal()" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
             <form id="deleteForm" method="POST" class="inline">

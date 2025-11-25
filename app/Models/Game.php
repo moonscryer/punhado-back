@@ -12,11 +12,12 @@ class Game extends Model
         'name',
         'description',
         'system',
-        'published'  // ← Add this
+        'published',
+        'image_url'   // ← Add this
     ];
 
     protected $casts = [
-        'published' => 'boolean',   // ← Converts to true/false
+        'published' => 'boolean',
     ];
 
     public function characters()
