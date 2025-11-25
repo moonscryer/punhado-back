@@ -21,6 +21,13 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // Force lowercase before validation
+        $request->merge([
+            'username' => strtolower($request->username),
+            'email' => strtolower($request->email),
+        ]);
+
+        // Validation
         $request->validate([
             'username' => 'required|string|max:100|unique:users',
             'email' => 'required|string|email|max:150|unique:users',
@@ -28,6 +35,7 @@ class UserController extends Controller
             'super_user' => 'sometimes|boolean',
         ]);
 
+        // Create user
         User::create([
             'username' => $request->username,
             'email' => $request->email,
@@ -45,6 +53,13 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        // Force lowercase before validation
+        $request->merge([
+            'username' => strtolower($request->username),
+            'email' => strtolower($request->email),
+        ]);
+
+        // Validation
         $request->validate([
             'username' => 'required|string|max:100|unique:users,username,' . $user->id,
             'email' => 'required|string|email|max:150|unique:users,email,' . $user->id,
@@ -52,13 +67,12 @@ class UserController extends Controller
             'super_user' => 'sometimes|boolean',
         ]);
 
+        // Update user
         $user->username = $request->username;
         $user->email = $request->email;
-
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-
         $user->super_user = $request->has('super_user') ? 1 : 0;
 
         $user->save();
