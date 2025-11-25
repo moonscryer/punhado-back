@@ -6,9 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    public $timestamps = false; // because we're using text timestamps
+    public $timestamps = false;
 
-    protected $fillable = ['name', 'description', 'system'];
+    protected $fillable = [
+        'name',
+        'description',
+        'system',
+        'published'  // ← Add this
+    ];
+
+    protected $casts = [
+        'published' => 'boolean',   // ← Converts to true/false
+    ];
 
     public function characters()
     {

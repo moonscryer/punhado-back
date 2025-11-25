@@ -8,7 +8,18 @@ class Character extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['name', 'player', 'image', 'description', 'game_id'];
+    protected $fillable = [
+        'name',
+        'player',
+        'image',
+        'description',
+        'game_id',
+        'published'   // ← Add this so you can mass-assign it
+    ];
+
+    protected $casts = [
+        'published' => 'boolean',   // ← Converts 0/1 to true/false
+    ];
 
     public function game()
     {
