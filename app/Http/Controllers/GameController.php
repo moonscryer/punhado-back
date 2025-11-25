@@ -9,8 +9,11 @@ class GameController extends Controller
 {
     public function index()
     {
-        $games = Game::with('characters')->get();
-        return view('games.index', compact('games'));
+    $games = Game::with('characters')
+                 ->orderBy('id', 'desc')
+                 ->paginate(10);
+
+    return view('games.index', compact('games'));
     }
 
     public function create()
