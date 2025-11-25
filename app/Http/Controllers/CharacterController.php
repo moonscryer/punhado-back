@@ -10,8 +10,11 @@ class CharacterController extends Controller
 {
     public function index()
     {
-        $characters = Character::with('game')->get();
-        return view('characters.index', compact('characters'));
+    $characters = Character::with('game')
+                           ->orderBy('id', 'desc')
+                           ->paginate(10);
+
+    return view('characters.index', compact('characters'));
     }
 
     public function create()

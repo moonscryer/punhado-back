@@ -6,12 +6,14 @@
     <title>{{ $title ?? 'Punhado' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-100">
 
     @include('partials.header')
 
-    <main class="max-w-6xl mx-auto px-4 py-6">
-        @yield('content')
+    <main class="px-6 py-10 flex-1">
+        <div class="{{ $width ?? 'max-w-5xl' }} mx-auto">
+            @yield('content')
+        </div>
     </main>
 
     @include('partials.footer')

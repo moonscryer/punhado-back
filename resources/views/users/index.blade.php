@@ -47,6 +47,10 @@
     </table>
 </div>
 
+<div class="mt-6 flex justify-center sticky bottom-4">
+    {{ $users->links() }}
+</div>
+
 <!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden items-center justify-center z-50">
     <div class="bg-white rounded-lg shadow-lg w-96 p-6">
