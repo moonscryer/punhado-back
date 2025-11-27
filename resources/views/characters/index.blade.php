@@ -84,7 +84,7 @@
     function openDeleteModal(id) {
         const modal = document.getElementById('deleteModal');
         const form = document.getElementById('deleteForm');
-        form.action = '/characters/' + id;
+        form.action = '/admin/characters/' + id;
         modal.classList.remove('hidden');
         modal.classList.add('flex');
     }

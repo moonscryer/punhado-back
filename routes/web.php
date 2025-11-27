@@ -10,18 +10,19 @@ use Illuminate\Support\Facades\Route;
 // -------------------------
 // Public Routes (Guests Only)
 // -------------------------
-
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login')->middleware('guest');
+Route::get('/login', [AuthController::class, 'showLogin'])
+    ->name('login')
+    ->middleware('guest');
 Route::post('/login', [AuthController::class, 'login'])->name('login.perform');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // -------------------------
 // Protected Routes (Require Auth)
 // -------------------------
+Route::prefix('admin')->middleware('auth')->group(function () {
 
-Route::middleware('auth')->group(function () {
-
-    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
+    // Dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Games
     Route::get('/games', [GameController::class, 'index'])->name('games.index');
@@ -51,8 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/users/{user}/toggle', [UserController::class, 'toggleSuper'])->name('users.toggle');
 });
 
+// -------------------------
 // Fallback
+// -------------------------
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 })->name('fallback');
-
