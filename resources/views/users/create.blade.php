@@ -37,10 +37,6 @@
             <label class="block text-gray-700">Confirm Password</label>
             <input type="password" name="password_confirmation" class="w-full border rounded px-3 py-2" required>
         </div>
-        <div class="flex items-center gap-2">
-            <input type="checkbox" name="super_user" value="1" {{ old('super_user') ? 'checked' : '' }}>
-            <label class="text-gray-700">Super User</label>
-        </div>
         <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create User</button>
     </form>
 </div>

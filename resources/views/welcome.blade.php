@@ -12,8 +12,11 @@
 
         <div>
             <p class="text-gray-700 mb-2">
-                Welcome to the Punhado de Dados Admin Panel. Here you can manage <strong>Games</strong>,
-                <strong>Characters</strong>, and <strong>Users</strong>.
+                Welcome to the Punhado de Dados Admin Panel. Here you can manage <strong>Games</strong>
+                and <strong>Characters</strong>
+                @if(auth()->user()->super_user)
+                    , and <strong>Users</strong>
+                @endif.
             </p>
             <p class="text-gray-700 font-medium">
                 <strong>Be advised:</strong> Deleting a <strong>Game</strong> will also remove all associated
@@ -25,23 +28,25 @@
     <!-- Dashboard Boxes -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
 
-        <a href="/games"
+        <a href="{{ route('games.index') }}"
            class="bg-white p-6 rounded-xl shadow hover:shadow-md transition block">
             <h2 class="text-2xl font-semibold mb-2">Games</h2>
             <p class="text-gray-600">View, create, and edit all games.</p>
         </a>
 
-        <a href="/characters"
+        <a href="{{ route('characters.index') }}"
            class="bg-white p-6 rounded-xl shadow hover:shadow-md transition block">
             <h2 class="text-2xl font-semibold mb-2">Characters</h2>
             <p class="text-gray-600">Manage player characters and NPCs.</p>
         </a>
 
-        <a href="/users"
-           class="bg-white p-6 rounded-xl shadow hover:shadow-md transition block">
-            <h2 class="text-2xl font-semibold mb-2">Users</h2>
-            <p class="text-gray-600">Administer user accounts and permissions.</p>
-        </a>
+        @if(auth()->user()->super_user)
+            <a href="{{ route('users.index') }}"
+               class="bg-white p-6 rounded-xl shadow hover:shadow-md transition block">
+                <h2 class="text-2xl font-semibold mb-2">Users</h2>
+                <p class="text-gray-600">Administer user accounts and permissions.</p>
+            </a>
+        @endif
 
     </div>
 </div>

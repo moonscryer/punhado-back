@@ -22,11 +22,13 @@
                     Characters
                 </a>
 
-                <a href="{{ route('users.index') }}"
-                   class="px-3 py-2 rounded-md font-medium
-                   {{ request()->is('users*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
-                    Users
-                </a>
+                @if(auth()->user()->super_user)
+                    <a href="{{ route('users.index') }}"
+                       class="px-3 py-2 rounded-md font-medium
+                       {{ request()->is('users*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
+                        Users
+                    </a>
+                @endif
 
                 <!-- Logout -->
                 <form action="{{ route('logout') }}" method="POST" class="inline">
@@ -76,11 +78,13 @@
                 Characters
             </a>
 
-            <a href="{{ route('users.index') }}"
-               class="block px-6 py-3 border-b border-gray-200
-               {{ request()->is('users*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:bg-indigo-50' }}">
-                Users
-            </a>
+            @if(auth()->user()->super_user)
+                <a href="{{ route('users.index') }}"
+                   class="block px-6 py-3 border-b border-gray-200
+                   {{ request()->is('users*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:bg-indigo-50' }}">
+                    Users
+                </a>
+            @endif
 
             <!-- Logout -->
             <form action="{{ route('logout') }}" method="POST" class="block px-6 py-3">

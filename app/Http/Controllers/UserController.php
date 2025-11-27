@@ -8,39 +8,43 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    // Helper to check if current user is super_user
+    private function authorizeSuperUser()
+    {
+        if (!auth()->user()->super_user) {
+            abort(403, 'Unauthorized.');
+        }
+    }
+
     public function index()
     {
-    $users = User::orderBy('id', 'desc')
-                 ->paginate(10);
+        $this->authorizeSuperUser();
 
-    return view('users.index', compact('users'));
+        $users = User::paginate(10);
+        return view('users.index', compact('users'));
     }
 
     public function create()
     {
+        $this->authorizeSuperUser();
+
         return view('users.create');
     }
 
     public function store(Request $request)
     {
-        // Force lowercase before validation
-        $request->merge([
-            'username' => strtolower($request->username),
-            'email' => strtolower($request->email),
-        ]);
+        $this->authorizeSuperUser();
 
-        // Validation
         $request->validate([
-            'username' => 'required|string|max:100|unique:users',
-            'email' => 'required|string|email|max:150|unique:users',
+            'username' => 'required|string|max:100|unique:users,username',
+            'email' => 'required|string|email|max:150|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
             'super_user' => 'sometimes|boolean',
         ]);
 
-        // Create user
         User::create([
             'username' => $request->username,
-            'email' => $request->email,
+            'email' => strtolower($request->email),
             'password' => Hash::make($request->password),
             'super_user' => $request->has('super_user') ? 1 : 0,
         ]);
@@ -50,18 +54,15 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorizeSuperUser();
+
         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
-        // Force lowercase before validation
-        $request->merge([
-            'username' => strtolower($request->username),
-            'email' => strtolower($request->email),
-        ]);
+        $this->authorizeSuperUser();
 
-        // Validation
         $request->validate([
             'username' => 'required|string|max:100|unique:users,username,' . $user->id,
             'email' => 'required|string|email|max:150|unique:users,email,' . $user->id,
@@ -69,14 +70,14 @@ class UserController extends Controller
             'super_user' => 'sometimes|boolean',
         ]);
 
-        // Update user
         $user->username = $request->username;
-        $user->email = $request->email;
+        $user->email = strtolower($request->email);
+
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-        $user->super_user = $request->has('super_user') ? 1 : 0;
 
+        $user->super_user = $request->has('super_user') ? 1 : 0;
         $user->save();
 
         return redirect()->route('users.index')->with('success', 'User updated.');
@@ -84,12 +85,16 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $this->authorizeSuperUser();
+
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted.');
     }
 
     public function toggleSuper(User $user)
     {
+        $this->authorizeSuperUser();
+
         $user->super_user = !$user->super_user;
         $user->save();
 
