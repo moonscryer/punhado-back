@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto px-6 py-12">
-    <h1 class="text-4xl font-bold text-gray-800 mb-8">Hello, Admin</h1>
+    <h1 class="text-4xl font-bold text-gray-800 mb-8">Hello, {{ auth()->user()->username }}</h1>
 
     <div class="bg-gray-50 border-l-4 border-gray-400 p-6 mb-8 rounded-lg flex items-start gap-4">
         <svg class="w-6 h-6 text-blue-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
