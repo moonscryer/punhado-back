@@ -51,8 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/users/{user}/toggle', [UserController::class, 'toggleSuper'])->name('users.toggle');
 });
 
-// // Fallback
-// Route::fallback(function () {
-//     return response()->view('errors.404', [], 404);
-// })->name('fallback');
+// Fallback
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+})->name('fallback');
 
