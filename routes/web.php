@@ -53,6 +53,6 @@ Route::middleware('auth')->group(function () {
 
 // Fallback
 Route::fallback(function () {
-    return "Page not found. Return <a href='/'>home</a>.";
+    return response()->view('errors.404', [], 404);
 })->name('fallback');
 
