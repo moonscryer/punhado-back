@@ -1,23 +1,26 @@
 <?php
 
-// THIS HAS NO AUTH YET!
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    public $timestamps = false;
+    use Notifiable;
 
     protected $fillable = [
         'username',
         'email',
         'password',
-        'super_user',   // NEW FIELD
+        'is_super'
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 
     protected $casts = [
-        'super_user' => 'boolean',  // NEW CAST
+        'is_super' => 'boolean',
     ];
 }
