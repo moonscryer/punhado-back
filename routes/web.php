@@ -21,7 +21,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
     // Games
     Route::get('/games', [GameController::class, 'index'])->name('games.index');

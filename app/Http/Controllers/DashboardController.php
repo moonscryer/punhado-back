@@ -12,6 +12,6 @@ class DashboardController extends Controller
         // Load all games with their characters
         $games = Game::with('characters')->get();
 
-        return view('welcome', compact('games'));
+        return view('admin.index', compact('games'));
     }
 }
