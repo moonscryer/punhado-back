@@ -7,48 +7,46 @@
         </a>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-6">
+        <!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center space-x-6">
 
-            @auth
-                <a href="{{ route('games.index') }}"
-                   class="px-3 py-2 rounded-md font-medium
-                   {{ request()->is('games*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
-                    Games
-                </a>
+    @auth
+        <a href="{{ route('games.index') }}"
+           class="px-3 py-2 rounded-md font-medium
+           {{ request()->is('admin/games*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
+            Games
+        </a>
 
-                <a href="{{ route('characters.index') }}"
-                   class="px-3 py-2 rounded-md font-medium
-                   {{ request()->is('characters*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
-                    Characters
-                </a>
+        <a href="{{ route('characters.index') }}"
+           class="px-3 py-2 rounded-md font-medium
+           {{ request()->is('admin/characters*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
+            Characters
+        </a>
 
-                @if(auth()->user()->super_user)
-                    <a href="{{ route('users.index') }}"
-                       class="px-3 py-2 rounded-md font-medium
-                       {{ request()->is('users*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
-                        Users
-                    </a>
-                @endif
+        @if(auth()->user()->super_user)
+            <a href="{{ route('users.index') }}"
+               class="px-3 py-2 rounded-md font-medium
+               {{ request()->is('admin/users*') ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600' }}">
+                Users
+            </a>
+        @endif
 
-                <!-- Logout -->
-                <form action="{{ route('logout') }}" method="POST" class="inline">
-                    @csrf
-                    <button type="submit"
-                        class="px-3 py-2 rounded-md bg-red-500 text-white hover:bg-red-600">
-                        Logout
-                    </button>
-                </form>
-            @else
-
-                <!-- Login -->
-                <a href="{{ route('login') }}"
-                   class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
-                    Login
-                </a>
-
-            @endauth
-
-        </nav>
+        <!-- Logout -->
+        <form action="{{ route('logout') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit"
+                class="px-3 py-2 rounded-md bg-red-500 text-white hover:bg-red-600">
+                Logout
+            </button>
+        </form>
+    @else
+        <!-- Login -->
+        <a href="{{ route('login') }}"
+           class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
+            Login
+        </a>
+    @endauth
+</nav>
 
         <!-- Mobile Hamburger -->
         <div class="md:hidden">

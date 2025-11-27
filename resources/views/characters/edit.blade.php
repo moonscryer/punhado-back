@@ -46,10 +46,6 @@
             <label class="block text-gray-700">Image URL</label>
             <input type="text" name="image" value="{{ old('image', $character->image) }}" class="w-full border rounded px-3 py-2">
         </div>
-        <div class="flex items-center gap-2">
-            <input type="checkbox" name="published" value="1" {{ old('published', $character->published) ? 'checked' : '' }}>
-            <label class="text-gray-700">Published</label>
-        </div>
         <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Update Character</button>
     </form>
 </div>

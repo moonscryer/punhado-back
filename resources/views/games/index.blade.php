@@ -85,7 +85,7 @@
     function openDeleteModal(id) {
         const modal = document.getElementById('deleteModal');
         const form = document.getElementById('deleteForm');
-        form.action = '/games/' + id;
+        form.action = '/admin/games/' + id;
         modal.classList.remove('hidden');
         modal.classList.add('flex');
     }
