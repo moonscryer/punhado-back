@@ -8,14 +8,17 @@
 </head>
 <body class="flex flex-col min-h-screen bg-gray-100">
 
+    {{-- Include the auth-aware header with tabs --}}
     @include('partials.header')
 
+    {{-- Main Page Content --}}
     <main class="px-6 py-10 flex-1">
         <div class="{{ $width ?? 'max-w-5xl' }} mx-auto">
             @yield('content')
         </div>
     </main>
 
+    {{-- Footer --}}
     @include('partials.footer')
 
 </body>
